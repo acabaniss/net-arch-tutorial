@@ -217,7 +217,7 @@ positions = nx.spring_layout(network,weight='similarity',iterations=50,scale=3)
 labels = {}
 for i in xrange(len(sites)): #For every site
     labels[i] = sites[i] # add it  to the list as an integer and the name of the site
-nx.draw_networkx(network,positions,True,labels=labels)
+nx.draw_networkx(network,positions,True,labels=labels,size=network.degree())
 
 # Our graph is now a little better! While ideally you'd like to use a more 
 ## refined approach to find your threshold, this will do for the purpose
@@ -242,12 +242,52 @@ plt.hist(network.degree().values())
 #Ok, you're wowed I know, but now you're jaded and want to see what else 
 ## NetworkX can do. 
 
-#Centrality
+#Centrality measures
+## There are a range of centrality measures one can use in analyzing a network
+## Here we will take a look at Betweenness centrality, which is related to the
+### number of paths that cross through a given node
 
-nx.centrality.closeness.closeness_centrality(network)
-nx.centrality.betweenness.betweenness_centrality(network)
-nx.centrality.eigenvector_centrality(network)
+#Calculate the betweenness centrality of the network
 
+central = nx.centrality.betweenness.betweenness_centrality(network,weight='similarity')
+
+# There we go! No need to code your own; NetworkX has you covered.
+# Let's take a look at it 
+
+print(central)
+
+#We can see that it gave us a dictionary with the values.
+# If we want to plot the nodes by how central they are, say by changing the
+## size of each node, we will want to convert to a different number
+# The help documentation indicates that the default value for size is 300 units,
+## whatever those might be, so let's aim for a mean size of around that.
+# We can figure out what conversion factor we need by dividing 300 by the mean
+## centrality
+print(300./mean(central.values()))
+conversion = 300./mean(central.values())
+
+# So we need to multiply by the centrality by around 2600
+# You may have also noticed that some of the nodes have a centrality of 0
+# To still plot those, we may want to have some minimum size (let's say 10)
+## for every node 
+
+# Let's start by defining a new dictionary to store the size of each node
+size = {}
+
+# Let's fill it by going through each value of the centrality and 1) multiplying
+## it by the conversion factor and then 2) adding 10 just to be sure that all
+## nodes have some size
+for i in central.keys():
+    size[i] = central[i]*conversion+10
+    
+# We can now put this into our plotting function from above by finding the
+## proper parameter
+nx.draw_networkx(network,positions,True, #Change this to true if you want labels
+labels=labels,node_size=size.values(),axis=False)
+
+# Some other options include: 
+central = nx.centrality.closeness.closeness_centrality(network,distance='distance')
+central = nx.centrality.eigenvector_centrality(network,weight='similarity')
 
 
 
