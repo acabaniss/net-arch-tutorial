@@ -18,3 +18,6 @@ Within each of the folders above you should find 1) a .md file, which will load 
 I strongly recommend [Enthought Canopy](https://store.enthought.com/licenses/academic/) for Python, which has a free academic license and will give you a package manager that is easy to use. 
 
 Once you install Canopy, open it up and click on the package manager; a quick search for the NetworkX package should pop up a result and you can install it there and then. (You may also have a lot of updates the first time you open the software; that's normal, and it's probably best to let those go ahead and run.)
+
+## Get in touch
+If you have questions, want to reuse any of this material elsewhere, or anything else, feel free to send me an email at ahfc (at) umich (dot) edu.
