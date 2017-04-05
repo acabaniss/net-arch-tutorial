@@ -99,7 +99,7 @@ types = data.Type.unique()
 
 #We now create an empty array that is the right size to store our counts
 #np.zeros creates an empty array to store things in
-counts = np.zeros((len(sites),len(types))) 
+counts = np.zeros( (len(sites),len(types)) ) 
 
 #We can then loop through every entry in our data in order to fill in the table
 for i in data.index: #for every artifact in the table 
@@ -249,7 +249,7 @@ plt.hist(network.degree().values())
 
 #Calculate the betweenness centrality of the network
 
-central = nx.centrality.betweenness.betweenness_centrality(network,weight='similarity')
+central = nx.centrality.closeness_centrality(network,distance='weight')
 
 # There we go! No need to code your own; NetworkX has you covered.
 # Let's take a look at it 

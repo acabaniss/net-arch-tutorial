@@ -1,4 +1,4 @@
-#Hi there! This is a basic tutorial in python
+# Hi there! This is a basic tutorial in python
 # The current text you are reading is not code, but comments.
 
 # Comments are plain-text (i.e. not code) labels in a document and have to be 
